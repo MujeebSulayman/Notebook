@@ -2,19 +2,19 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, UseEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 
 const Navbar = () => {
-    const isUserLoggedIn = true
+    const { data: session } = useSession()
     const [Providers, setProviders] = useState(null)
     const [toggleDropdown, setToggleDropdown] = useState(false)
     useEffect(() => {
-        const setProviders = async () => {
+        const setUpProviders = async () => {
             const response = await getProviders()
             setProviders(response)
         }
-        setProviders()
+        setUpProviders()
     }, [])
 
 
@@ -33,24 +33,25 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className='sm:flex hidden'>
-                {isUserLoggedIn ? (<div className='flex gap-3 md:gap-5'>
-                    <Link href='/create-prompt' className='black_btn'>
-                        Create Post</Link>
+                {session?.user ? (
+                    <div className='flex gap-3 md:gap-5'>
+                        <Link href='/create-prompt' className='black_btn'>
+                            Create Post</Link>
 
-                    <button type='button' onClick={signOut} className='outline_btn'>
-                        Sign Out
-                    </button>
+                        <button type='button' onClick={signOut} className='outline_btn'>
+                            Sign Out
+                        </button>
 
-                    <Link href='/profile'>
-                        <Image
-                            src='assets/images/logo.svg'
-                            width={37}
-                            height={37}
-                            className='rounded-full'
-                            alt=''
-                        />
-                    </Link>
-                </div>) : (
+                        <Link href='/profile'>
+                            <Image
+                                src='assets/images/logo.svg'
+                                width={37}
+                                height={37}
+                                className='rounded-full'
+                                alt=''
+                            />
+                        </Link>
+                    </div>) : (
                     <>
                         {Providers &&
                             Object.values(Providers).map((provider) => (
@@ -70,7 +71,7 @@ const Navbar = () => {
 
             {/* Mobile Navigation */}
             <div className='sm:hidden flex relative'>
-                {isUserLoggedIn ? (
+                {session?.user ? (
                     <div className='flex'>
                         <Image src='/assets/images/logo.svg'
                             alt='logo'
@@ -94,7 +95,7 @@ const Navbar = () => {
                                 >
                                     Create Prompt                                </Link>
                                 <button
-                                className='mt-5 w-full black_btn'
+                                    className='mt-5 w-full black_btn'
                                     type='button'
                                     onClick={() => {
                                         setToggleDropdown(false)
