@@ -1,11 +1,20 @@
 import nextAuth from "next-auth";
-import NextAuth from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google'
+import { signIn } from "next-auth/react";
 
 const handler = nextAuth({
     providers: [
-        GoogleProvider([
-            clientID : ' '
-        ])
-    ]
+        GoogleProvider({
+            clientID: '',
+            clientSecret: '',
+        })
+    ],
+    async session({ session }) {
+
+    },
+    async signIn({ profile }) {
+
+    }
 })
+
+export { handler as GET, handler as POST }
