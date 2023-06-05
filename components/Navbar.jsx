@@ -28,7 +28,7 @@ const Nav = () => {
           height={30}
           className='object-contain'
         />
-        <p className='logo_text'>Promptopia</p>
+        <p className='logo_text'>HemNote</p>
       </Link>
 
       {/* Desktop Navigation */}
@@ -121,8 +121,8 @@ const Nav = () => {
                 <button
                   type='button'
                   key={provider.name}
-                  onClick={() => {
-                    signIn(provider.id);
+                  onClick={async () => {
+                    await signIn(provider.id);
                   }}
                   className='black_btn'
                 >
