@@ -33,7 +33,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           <span className='font-satoshi font-semibold text-base text-gray-700'>
             Field of Prompt{" "}
             <span className='font-normal'>
-              (#motivation, #note, #idea, blog.)
+              (#product, #webdevelopment, #idea, etc.)
             </span>
           </span>
           <input
